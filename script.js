@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Get all video containers
-    const videoContainers = document.querySelectorAll('.videos-container');
+    // Get the video container
+    const videosContainer = document.querySelector('.videos-container');
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    const watchButtons = document.querySelectorAll('.watch-button');
 
     // Sample video data with more entries for better demonstration
     const videos = [
@@ -55,6 +53,22 @@ document.addEventListener('DOMContentLoaded', () => {
             thumbnail: 'https://images.unsplash.com/photo-1620336655052-b57986f5a26a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
             views: 198765,
             duration: '19:42'
+        },
+        {
+            id: 'video7',
+            title: 'The Science of Climate Change',
+            description: 'Understanding the data and research behind climate change.',
+            thumbnail: 'https://images.unsplash.com/photo-1614469159813-2b73de4fd2c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
+            views: 456789,
+            duration: '21:15'
+        },
+        {
+            id: 'video8',
+            title: 'Virtual Reality: The Next Frontier',
+            description: 'Exploring the latest developments in VR technology and applications.',
+            thumbnail: 'https://images.unsplash.com/photo-1657295181845-54b832b6f0b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
+            views: 234567,
+            duration: '17:42'
         }
     ];
 
@@ -66,15 +80,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Function to render videos
-    const renderVideos = (videoList, container) => {
-        container.innerHTML = '';
+    const renderVideos = (videoList) => {
+        videosContainer.innerHTML = '';
         if (videoList.length === 0) {
-            container.innerHTML = '<p class="no-results">No videos found. Try a different search term.</p>';
+            videosContainer.innerHTML = '<p class="no-results">No videos found. Try a different search term.</p>';
             return;
         }
         videoList.forEach(video => {
             const videoItem = document.createElement('div');
             videoItem.classList.add('video-item');
+            videoItem.dataset.videoId = video.id; // Add video ID as data attribute
             videoItem.innerHTML = `
                 <div class="video-thumbnail">
                     <img src="${video.thumbnail}" alt="${video.title}">
@@ -85,68 +100,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${video.description}</p>
                     <div class="video-meta">
                         <span class="video-views"><i class="fas fa-eye"></i> ${formatViews(video.views)} views</span>
-                        <button class="watch-button" data-video-id="${video.id}">Watch</button>
                     </div>
                 </div>
             `;
-            container.appendChild(videoItem);
+            videosContainer.appendChild(videoItem);
         });
     };
 
-    // Function to shuffle array
-    const shuffleArray = (array) => {
-        const newArray = [...array];
-        for (let i = newArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-        }
-        return newArray;
-    };
-
     // Function to filter videos based on search term
-    const filterVideos = (searchTerm, category = 'All') => {
+    const filterVideos = (searchTerm) => {
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
-        let filteredVideos = videos;
+        if (!searchTerm) return videos; // Return all videos if no search term
         
-        // Filter by category if not 'All'
-        if (category !== 'All') {
-            // In a real app, videos would have category properties
-            // For demo, we'll just shuffle for variety
-            filteredVideos = shuffleArray(filteredVideos);
-        }
-        
-        // Filter by search term
-        if (searchTerm) {
-            filteredVideos = filteredVideos.filter(video =>
-                video.title.toLowerCase().includes(lowerCaseSearchTerm) ||
-                video.description.toLowerCase().includes(lowerCaseSearchTerm)
-            );
-        }
-        
-        return filteredVideos;
+        return videos.filter(video =>
+            video.title.toLowerCase().includes(lowerCaseSearchTerm) ||
+            video.description.toLowerCase().includes(lowerCaseSearchTerm)
+        );
     };
 
-    // Render videos in each container
-    const renderAllVideos = () => {
-        // First container gets all videos
-        const featuredVideos = videos.slice(0, 4);
-        renderVideos(featuredVideos, videoContainers[0]);
-        
-        // Second container gets shuffled videos
-        const trendingVideos = shuffleArray(videos).slice(0, 4);
-        renderVideos(trendingVideos, videoContainers[1]);
-    };
-
-    // Initial render
-    renderAllVideos();
+    // Initial render of all videos
+    renderVideos(videos);
 
     // Handle search button click
     searchButton.addEventListener('click', () => {
         const searchTerm = searchInput.value;
         const filtered = filterVideos(searchTerm);
-        renderVideos(filtered, videoContainers[0]);
-        // Clear second container when searching
-        videoContainers[1].innerHTML = '';
+        renderVideos(filtered);
     });
 
     // Handle Enter key press in search input
@@ -156,31 +135,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Handle category button clicks
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            button.classList.add('active');
-            
-            // Filter videos by category
-            const category = button.textContent;
-            const searchTerm = searchInput.value;
-            const filtered = filterVideos(searchTerm, category);
-            
-            // Render in first container
-            renderVideos(filtered.slice(0, 4), videoContainers[0]);
-        });
-    });
-
-    // Handle watch button clicks
-    document.addEventListener('click', (event) => {
-        if (event.target.classList.contains('watch-button')) {
-            const videoId = event.target.dataset.videoId;
-            // Show a modal with video player (simplified for this example)
-            alert(`Playing video with ID: ${videoId}
-In a real application, this would open a video player modal.`);
+    // Handle video item clicks (redirect to video page)
+    videosContainer.addEventListener('click', (event) => {
+        const videoItem = event.target.closest('.video-item');
+        if (videoItem) {
+            const videoId = videoItem.dataset.videoId;
+            // In a real application, this would redirect to a video page
+            // For this example, we'll show an alert with the video ID
+            alert(`Redirecting to video with ID: ${videoId}
+In a real application, this would take you to the video page.`);
+            // window.location.href = `/video/${videoId}`; // Uncomment for actual redirect
         }
     });
 
@@ -199,11 +163,4 @@ In a real application, this would open a video player modal.`);
 
     // Update view counts every 10 seconds
     setInterval(updateViewCounts, 10000);
-
-    // Add animation to hero section on load
-    const heroSection = document.querySelector('.hero-section');
-    setTimeout(() => {
-        heroSection.style.opacity = '1';
-        heroSection.style.transform = 'translateY(0)';
-    }, 300);
 });
