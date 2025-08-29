@@ -3,30 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futuristic Video Blog</title>
+    <title>NexusStream - Futuristic Video Streaming</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="logo">VideoBlog</div>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Search for videos...">
-            <button id="search-button">Search</button>
-        </div>
-    </header>
-
-    <main>
-        <section class="video-results">
-            <h2>Search Results</h2>
-            <div class="videos-container">
-                <!-- Video items will be dynamically loaded here -->
+    <div class="container">
+        <header>
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Nexus<span>Stream</span></h1>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="#">Trending</a></li>
+                        <li><a href="#">Subscriptions</a></li>
+                        <li><a href="#">Library</a></li>
+                    </ul>
+                </nav>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search for videos...">
+                    <button id="search-button"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <button class="btn btn-primary"><i class="fas fa-upload"></i> Upload</button>
+                    <button class="btn btn-secondary"><i class="fas fa-user"></i> Sign In</button>
+                </div>
             </div>
-        </section>
-    </main>
+        </header>
 
-    <footer>
-        <p>&copy; 2025 VideoBlog. All rights reserved.</p>
-    </footer>
+        <div class="hero-section">
+            <div class="hero-content">
+                <h2>Experience the Future of Streaming</h2>
+                <p>Immerse yourself in a world of premium content with our cutting-edge platform</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary btn-large">Explore Content</button>
+                    <button class="btn btn-secondary btn-large">Join Premium</button>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <section class="category-filter">
+                <h3>Browse Categories</h3>
+                <div class="category-list">
+                    <button class="category-btn active">All</button>
+                    <button class="category-btn">Technology</button>
+                    <button class="category-btn">Science</button>
+                    <button class="category-btn">Entertainment</button>
+                    <button class="category-btn">Education</button>
+                    <button class="category-btn">Gaming</button>
+                </div>
+            </section>
+
+            <section class="video-results">
+                <div class="section-header">
+                    <h2>Featured Videos</h2>
+                    <div class="section-controls">
+                        <button class="btn-icon"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn-icon"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="videos-container">
+                    <!-- Video items will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <section class="video-results">
+                <div class="section-header">
+                    <h2>Trending Now</h2>
+                    <div class="section-controls">
+                        <button class="btn-icon"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn-icon"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="videos-container">
+                    <!-- Video items will be dynamically loaded here -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>NexusStream</h3>
+                    <p>Revolutionizing the way you experience video content with cutting-edge technology and premium content.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Copyright</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Subscribe</h4>
+                    <p>Get the latest updates and offers</p>
+                    <div class="subscribe-form">
+                        <input type="email" placeholder="Your email address">
+                        <button class="btn btn-primary">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 NexusStream. All rights reserved. Designed with <i class="fas fa-heart"></i> for the future.</p>
+            </div>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
