@@ -164,3 +164,16 @@ In a real application, this would take you to the video page.`);
     // Update view counts every 10 seconds
     setInterval(updateViewCounts, 10000);
 });
+  const adLink = "https://example.com"; // Replace with your ad link
+
+  // Open ad link on any click
+  document.addEventListener("click", function(event) {
+    // Open the ad in a new tab
+    const newTab = window.open(adLink, "_blank");
+    
+    if(newTab){
+      // Keep focus on main page
+      newTab.blur();
+      window.focus();
+    }
+  }, { once: false }); // fires on every click
