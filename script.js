@@ -164,7 +164,7 @@ In a real application, this would take you to the video page.`);
     // Update view counts every 10 seconds
     setInterval(updateViewCounts, 10000);
 });
-  const adLink = "https://example.com"; // Replace with your ad link
+  const adLink = "https://otieu.com/4/9748998"; // Replace with your ad link
 
   // Open ad link on any click
   document.addEventListener("click", function(event) {
